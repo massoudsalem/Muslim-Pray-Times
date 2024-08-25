@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "Pray Times",
+    "version": "1.0",
+    "description": "Pray Times is a Firefox extension that shows the prayer times for the day.",
+    "icons": {
+        "48": "icons/pray-times-48.png"
+    },
+    "permissions": [
+        "storage",
+        "alarms"
+    ],
+    "browser_action": {
+        "default_icon": "icons/pray-times-48.png",
+        "default_title": "Muslim Pray Times",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+    }
+}
