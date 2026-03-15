@@ -1,0 +1,623 @@
+/* ═══════════════════════════════════════════════════════════════════
+   popup.css — Modern prayer times popup
+   Theme: Emerald green · Deep navy · Gold
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Custom properties ────────────────────────────────────────────── */
+:root {
+  --emerald: #1d7a4e;
+  --emerald-dark: #155c3a;
+  --emerald-light: #e8f5ee;
+  --navy: #0d1b2a;
+  --navy-mid: #1a2e42;
+  --gold: #c9962a;
+  --gold-light: #f5e6c0;
+  --text-primary: #0d1b2a;
+  --text-secondary: #5a6a78;
+  --text-muted: #8a97a2;
+  --bg: #f0f4f2;
+  --surface: #ffffff;
+  --surface-alt: #f7faf8;
+  --border: #d8e4dd;
+  --current-bg: #e8f5ee;
+  --current-border: #1d7a4e;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+[data-theme="dark"] {
+  --text-primary: #e8f0f4;
+  --text-secondary: #8ba5b8;
+  --text-muted: #586673;
+  --bg: #0d1b2a;
+  --surface: #1a2e42;
+  --surface-alt: #162535;
+  --border: #2a3e52;
+  --current-bg: #1a3528;
+  --current-border: #2db870;
+  --emerald-light: #143d26;
+  --gold-light: #3d2e0e;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Reset + Box ───────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text-primary);
+  width: 360px;
+  min-height: 480px;
+  position: relative;
+  overflow-x: hidden;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+/* ─── Header ────────────────────────────────────────────────────────── */
+.header {
+  background: linear-gradient(
+    135deg,
+    var(--emerald-dark) 0%,
+    var(--emerald) 60%,
+    #2a9e68 100%
+  );
+  color: #fff;
+  padding: 14px 16px 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle geometric background in header */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 20px
+    );
+  pointer-events: none;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 280px;
+}
+
+.location-icon {
+  font-size: 13px;
+}
+
+.location-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.95;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.date-block {
+  position: relative;
+}
+
+.date-hijri {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold-light, #f5e6c0);
+  letter-spacing: 0.3px;
+}
+
+.date-greg {
+  font-size: 11px;
+  opacity: 0.78;
+  margin-top: 1px;
+}
+
+/* ─── Geometric divider ─────────────────────────────────────────────── */
+.pattern-divider {
+  height: 20px;
+  background: var(--surface);
+  overflow: visible;
+}
+.pattern-divider svg {
+  width: 100%;
+  display: block;
+  margin-top: -1px;
+}
+
+/* ─── Countdown card ─────────────────────────────────────────────────── */
+.countdown-card {
+  background: var(--surface);
+  margin: 0 14px 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.countdown-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.countdown-label span {
+  font-weight: 700;
+  color: var(--emerald);
+  text-transform: capitalize;
+}
+
+.countdown-timer {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+/* ─── Prayer list ─────────────────────────────────────────────────────── */
+.prayer-list {
+  margin: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.prayer-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  cursor: default;
+}
+
+.prayer-row:hover {
+  background: var(--surface-alt);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Current prayer */
+.prayer-row.current {
+  background: var(--current-bg);
+  border-color: var(--current-border);
+  box-shadow: 0 0 0 2px rgba(29, 122, 78, 0.15);
+}
+
+.prayer-row.current .prayer-name {
+  color: var(--emerald);
+  font-weight: 700;
+}
+
+.prayer-row.current .prayer-dot {
+  background: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(29, 122, 78, 0.25);
+}
+
+/* Passed prayer */
+.prayer-row.passed .prayer-name,
+.prayer-row.passed .prayer-time {
+  opacity: 0.5;
+}
+
+.prayer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prayer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.prayer-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition:
+    color 0.2s,
+    opacity 0.2s;
+}
+
+.prayer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prayer-time {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  min-width: 68px;
+  text-align: right;
+  transition: opacity 0.2s;
+}
+
+.prayer-row.current .prayer-time {
+  color: var(--emerald);
+}
+
+.pray-check {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 2px;
+  border-radius: 4px;
+  transition:
+    color 0.15s,
+    transform 0.15s;
+  line-height: 1;
+}
+.pray-check:hover {
+  color: var(--emerald);
+  transform: scale(1.2);
+}
+.pray-check.checked {
+  color: var(--emerald);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────── */
+.footer {
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-weekly {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  min-height: 20px;
+}
+
+.weekly-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.weekly-dot.done {
+  background: var(--emerald);
+}
+.weekly-dot.past {
+  background: var(--gold);
+}
+.weekly-dot.upcoming {
+  background: var(--border);
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────── */
+.footer-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s,
+    box-shadow 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.footer-btn:active {
+  transform: scale(0.97);
+}
+
+.primary-btn {
+  background: var(--emerald);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(29, 122, 78, 0.3);
+}
+.primary-btn:hover {
+  background: var(--emerald-dark);
+  box-shadow: 0 4px 12px rgba(29, 122, 78, 0.4);
+}
+
+.secondary-btn {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.secondary-btn:hover {
+  background: var(--surface-alt);
+  border-color: var(--emerald);
+}
+
+.ghost-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.ghost-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ─── Overlay / modal ─────────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 27, 42, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+.overlay.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overlay-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  width: 320px;
+  max-width: 90%;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.overlay-mosque {
+  font-size: 48px;
+  text-align: center;
+}
+
+.overlay-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.overlay-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.overlay-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─── Form elements ────────────────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus {
+  border-color: var(--emerald);
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
+}
+.form-group.half {
+  flex: 1;
+}
+
+.divider-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+.divider-or::before,
+.divider-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.suggestions-list {
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  max-height: 140px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  margin-top: 2px;
+}
+.suggestions-list.hidden {
+  display: none;
+}
+.suggestions-list li {
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+.suggestions-list li:hover {
+  background: var(--emerald-light);
+}
+.form-group {
+  position: relative;
+}
+
+.status-msg {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+  min-height: 16px;
+}
+
+/* ─── Loading overlay ────────────────────────────────────────────────── */
+.spinner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}

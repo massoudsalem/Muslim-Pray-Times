@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prayer Times Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><span class="brand-icon">🕌</span><span class="brand-name">Prayer Times</span></div>
+      <nav><ul class="nav-list">
+        <li><a href="#calculation" class="nav-link active">Calculation</a></li>
+        <li><a href="#location" class="nav-link">Location</a></li>
+        <li><a href="#notifications" class="nav-link">Notifications</a></li>
+        <li><a href="#display" class="nav-link">Display</a></li>
+        <li><a href="#tracker" class="nav-link">Tracker</a></li>
+      </ul></nav>
+    </aside>
+
+    <main class="content">
+      <div class="content-header">
+        <h1>Settings</h1>
+        <p class="subtitle">Customize your prayer times experience</p>
+      </div>
+
+      <section class="section" id="calculation">
+        <h2 class="section-title">Calculation Method</h2>
+        <p class="section-desc">Choose how prayer times are calculated</p>
+        <div class="card">
+          <div class="form-group">
+            <label>Method</label>
+            <select id="method-select" class="select">
+              <option value="MWL">Muslim World League</option>
+              <option value="ISNA">ISNA (North America)</option>
+              <option value="Egypt">Egyptian Authority</option>
+              <option value="Makkah">Umm al-Qura (Makkah)</option>
+              <option value="Karachi">Karachi</option>
+              <option value="Tehran">Tehran</option>
+              <option value="Jafari">Jafari (Shia)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Asr Calculation</label>
+            <select id="asr-select" class="select">
+              <option value="Standard">Standard (Shafi'i)</option>
+              <option value="Hanafi">Hanafi</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="location">
+        <h2 class="section-title">Location</h2>
+        <p class="section-desc">Where to calculate prayer times for</p>
+        <div class="card">
+          <div class="toggle-group">
+            <label class="toggle-label"><input type="radio" name="loc-mode" value="auto"> Auto Detect</label>
+            <label class="toggle-label"><input type="radio" name="loc-mode" value="manual"> Manual</label>
+          </div>
+
+          <div id="auto-section">
+            <button class="btn primary-btn" id="detect-btn">🌍 Detect My Location</button>
+            <div class="status-msg" id="detect-status"></div>
+          </div>
+
+          <div id="manual-section" class="hidden">
+            <input type="text" id="opt-city" placeholder="Cairo, Egypt" style="margin-top: 8px;">
+            <input type="number" id="opt-lat" placeholder="Latitude" step="0.001" style="margin-top: 6px;">
+            <input type="number" id="opt-lng" placeholder="Longitude" step="0.001">
+            <input type="number" id="opt-tz" placeholder="Timezone" step="0.5">
+            <button class="btn primary-btn" id="save-loc-btn" style="margin-top: 8px;">Save Location</button>
+          </div>
+
+          <div class="current-loc-info">
+            <span class="info-label">📍</span>
+            <span id="current-loc-label">Not set</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="notifications">
+        <h2 class="section-title">Notifications</h2>
+        <p class="section-desc">Get alerts for prayer times</p>
+        <div class="card">
+          <div class="switch-row">
+            <div>
+              <div class="switch-label">Enable Notifications</div>
+              <div class="switch-desc">Show browser notifications</div>
+            </div>
+            <label class="switch"><input type="checkbox" id="notif-toggle"><span class="switch-track"></span></label>
+          </div>
+
+          <div id="notif-options" class="hidden">
+            <div class="form-group">
+              <label>Pre-Warning (minutes)</label>
+              <input type="number" id="pre-warning" value="10" min="0" max="60" class="select">
+            </div>
+          </div>
+
+          <div class="switch-row" style="margin-top: 14px;">
+            <div>
+              <div class="switch-label">Prayer Mode</div>
+              <div class="switch-desc">Focus reminder overlay</div>
+            </div>
+            <label class="switch"><input type="checkbox" id="prayer-mode-toggle"><span class="switch-track"></span></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="display">
+        <h2 class="section-title">Display</h2>
+        <p class="section-desc">Customize the look and feel</p>
+        <div class="card">
+          <div class="form-group">
+            <label>Time Format</label>
+            <select id="time-format" class="select">
+              <option value="12h">12-hour (AM/PM)</option>
+              <option value="24h">24-hour</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Theme</label>
+            <select id="theme-select" class="select">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="tracker">
+        <h2 class="section-title">Prayer Tracker</h2>
+        <p class="section-desc">Mark prayers as completed</p>
+        <div class="card">
+          <div class="subsection-title" style="margin-bottom: 12px;">Today</div>
+          <div class="tracker-grid" id="tracker-today"></div>
+
+          <div class="subsection-title" style="margin-top: 18px; margin-bottom: 8px;">Last 7 Days</div>
+          <div class="tracker-week-grid" id="tracker-week"></div>
+        </div>
+      </section>
+
+      <div class="save-bar">
+        <span class="save-status" id="save-status"></span>
+        <button class="btn primary-btn" id="save-btn">💾 Save Settings</button>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

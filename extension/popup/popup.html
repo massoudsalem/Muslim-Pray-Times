@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prayer Times</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-top">
+      <div class="location-info"><span class="location-icon">📍</span><span class="location-name" id="location-label">Loading…</span></div>
+      <button class="icon-btn" id="location-btn">⚙</button>
+    </div>
+    <div class="date-block">
+      <div class="date-hijri" id="hijri-date">—</div>
+      <div class="date-greg" id="greg-date">—</div>
+    </div>
+  </div>
+
+  <div class="countdown-card">
+    <div class="countdown-label">Next: <span id="next-prayer-name">—</span></div>
+    <div class="countdown-timer" id="countdown-timer">00:00</div>
+  </div>
+
+  <div class="prayer-list">
+    <div class="prayer-row" id="row-fajr">
+      <div class="prayer-left"><div class="prayer-dot"></div><div class="prayer-name">Fajr</div></div>
+      <div class="prayer-right"><div class="prayer-time" id="time-fajr">—</div><button class="pray-check" data-prayer="fajr">☐</button></div>
+    </div>
+    <div class="prayer-row" id="row-dhuhr">
+      <div class="prayer-left"><div class="prayer-dot"></div><div class="prayer-name">Dhuhr</div></div>
+      <div class="prayer-right"><div class="prayer-time" id="time-dhuhr">—</div><button class="pray-check" data-prayer="dhuhr">☐</button></div>
+    </div>
+    <div class="prayer-row" id="row-asr">
+      <div class="prayer-left"><div class="prayer-dot"></div><div class="prayer-name">Asr</div></div>
+      <div class="prayer-right"><div class="prayer-time" id="time-asr">—</div><button class="pray-check" data-prayer="asr">☐</button></div>
+    </div>
+    <div class="prayer-row" id="row-maghrib">
+      <div class="prayer-left"><div class="prayer-dot"></div><div class="prayer-name">Maghrib</div></div>
+      <div class="prayer-right"><div class="prayer-time" id="time-maghrib">—</div><button class="pray-check" data-prayer="maghrib">☐</button></div>
+    </div>
+    <div class="prayer-row" id="row-isha">
+      <div class="prayer-left"><div class="prayer-dot"></div><div class="prayer-name">Isha</div></div>
+      <div class="prayer-right"><div class="prayer-time" id="time-isha">—</div><button class="pray-check" data-prayer="isha">☐</button></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-weekly" id="weekly-summary"></div>
+    <div class="footer-actions">
+      <button class="footer-btn secondary-btn" id="prayer-mode-btn">🕌 Mode</button>
+      <button class="footer-btn primary-btn" id="settings-btn">⚙ Settings</button>
+    </div>
+  </div>
+
+  <div id="location-panel" class="overlay hidden">
+    <div class="overlay-card">
+      <button id="close-location-btn" style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+      <div class="overlay-title">📍 Location</div>
+      <div id="auto-section">
+        <button class="footer-btn primary-btn full-width" id="auto-location-btn">🌍 Detect</button>
+        <div class="status-msg" id="auto-location-status"></div>
+      </div>
+      <div id="manual-section" class="hidden">
+        <input type="text" id="city-input" placeholder="Cairo, Egypt"><ul class="suggestions-list hidden" id="city-suggestions"></ul>
+        <input type="number" id="lat-input" placeholder="30.0444" step="0.001" style="margin-top: 8px;">
+        <input type="number" id="lng-input" placeholder="31.2357" step="0.001">
+        <input type="number" id="tz-input" placeholder="2" step="0.5">
+        <button class="footer-btn primary-btn full-width" id="save-location-btn" style="margin-top: 8px;">💾 Save</button>
+      </div>
+      <div style="padding-top: 12px; border-top: 1px solid var(--border); text-align: center; font-size: 11px;">Current: <span id="current-loc-label">—</span></div>
+    </div>
+  </div>
+
+  <div id="prayer-mode-overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-mosque">🕌</div>
+      <div class="overlay-title" id="overlay-title">Prayer time</div>
+      <button class="footer-btn primary-btn full-width" id="overlay-prayed">✓ Prayed</button>
+      <button class="footer-btn secondary-btn full-width" id="overlay-snooze">⏱ Snooze</button>
+      <button class="footer-btn ghost-btn full-width" id="overlay-close">✕ Dismiss</button>
+    </div>
+  </div>
+
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="spinner-wrap"><div class="spinner"></div><div>Loading…</div></div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
