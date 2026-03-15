@@ -1,1 +1,6 @@
 .prettierrc
+node_modules
+.github
+memory
+test-results
+playwright-report
