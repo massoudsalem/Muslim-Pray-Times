@@ -96,7 +96,8 @@ async function refreshBadge() {
     text = `${minsToNext}m`;
   } else {
     const h = Math.floor(minsToNext / 60);
-    text = `${h}h`;
+    const m = minsToNext % 60;
+    text = `${h}:${m}`;
   }
 
   chrome.action.setBadgeText({ text });
@@ -154,7 +155,7 @@ async function getTodayTimes() {
     method: settings?.method || "MWL",
     asrJuristic: settings?.asrJuristic || "Standard",
   };
-  
+
   const times = calculatePrayerTimes(location, new Date(), opts);
 
   // Cache it
